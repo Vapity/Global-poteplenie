@@ -1,0 +1,7 @@
+bs4
+BeautifulSoup
+requests
+pandas
+telebot
+НЕ ТОЧНО:
+flask
