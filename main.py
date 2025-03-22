@@ -1,35 +1,32 @@
 import telebot
-from bot_logic import gen_pass, gen_emodji, flip_coin  # Импортируем функции из bot_logic
+from bot_logic import get_section_info  # Импортируем функции из bot_logic
 
 # Замени 'TOKEN' на токен твоего бота
 bot = telebot.TeleBot("7800432693:AAH2ZWh27JoUBAPvmkTSxlje0bjSN6a7nKo")
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    bot.reply_to(message, "Привет! Я твой Telegram бот. Напиши команду /hello, /bye, /pass, /emodji или /coin  ")
+    bot.reply_to(message, "Привет! Я бот для решения проблемы глобального потепления. Напиши команду /prichin, /predotwrashenie, /posledstvija, /o_poteplenii или /info  ")
 
-@bot.message_handler(commands=['hello'])
-def send_hello(message):
-    bot.reply_to(message, "Привет! Как дела?")
+@bot.message_handler(commands=['info'])
+def send_info(message):
+    bot.reply_to(message, "Привет! Я бот который поможет решить проблему глобального потепления я могу: 1.рассказать причины глобального потепления 2: как его предотвратить и 3: его последствия")
 
-@bot.message_handler(commands=['bye'])
+@bot.message_handler(commands=['o_poteplenii'])
 def send_bye(message):
-    bot.reply_to(message, "Пока! Удачи!")
+    bot.reply_to(message, get_section_info("Общие сведения"))
 
-@bot.message_handler(commands=['pass'])
+@bot.message_handler(commands=['predotwrashenie'])
 def send_password(message):
-    password = gen_pass(10)  # Устанавливаем длину пароля, например, 10 символов
-    bot.reply_to(message, f"Вот твой сгенерированный пароль: {password}")
+    bot.reply_to(message, get_section_info("Предотвращение и адаптация"))
 
-@bot.message_handler(commands=['emodji'])
+@bot.message_handler(commands=['posledstvija'])
 def send_emodji(message):
-    emodji = gen_emodji()
-    bot.reply_to(message, f"Вот эмоджи': {emodji}")
+    bot.reply_to(message, get_section_info("Климатические последствия"))
 
-@bot.message_handler(commands=['coin'])
+@bot.message_handler(commands=['prichin'])
 def send_coin(message):
-    coin = flip_coin()
-    bot.reply_to(message, f"Монетка выпала так: {coin}")
+    bot.reply_to(message, get_section_info("Причины потепления (внешние воздействия)"))
 
 # Запускаем бота
 bot.polling()

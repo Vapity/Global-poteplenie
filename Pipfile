@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 telebot = "*"
+bs4 = "*"
 
 [dev-packages]
 
